@@ -6,7 +6,8 @@ const startupPrompts = [
         choices: [
             "Add departments, roles, and/or employees",
             "View departments, roles, employees",
-            "Update employee roles"
+            "Update employee roles",
+            "Exit"
         ]
     }
 ]
