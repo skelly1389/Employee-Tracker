@@ -1,5 +1,6 @@
 const mysql = require('mysql');
-var inquirer = require('inquirer');
+const inquirer = require('inquirer');
+const prompts = require('./assets/prompts')
 
 const connection = mysql.createConnection({
     host: 'localhost',
@@ -12,4 +13,6 @@ const connection = mysql.createConnection({
 connection.connect((err) => {
     if (err) throw err;
     console.log(`connected as id ${connection.threadId}`);
+    inquirer.prompt(prompts.startupPrompts)
+    .then((answers) => console.log(answers));
   });
