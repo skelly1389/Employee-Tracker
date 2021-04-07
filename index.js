@@ -31,15 +31,33 @@ const connection = mysql.createConnection({
   }
 
   function addSelector() {
-    console.log("Add info selected");
+    inquirer.prompt(prompts.addPrompts)
+    .then((answers) => {
+        switch(answers.task) {
+            case "Departments":
+                addDepartment();
+                break;
+            case "Employees":
+                viewEmployee();
+                break;
+            case "Roles":
+                updateRole();
+                break;
+            case "Go Back":
+                start();
+                break
+        }
+    });
   }
 
   function viewSelector() {
-    console.log("View info selected");
+    inquirer.prompt(prompts.viewPrompts)
+    .then((answers) => console.log(answers.task));
   }
 
   function updateSelector() {
-    console.log("Update info selected");
+    inquirer.prompt(prompts.updatePrompts)
+    .then((answers) => console.log(answers.task));
   }
 
   function exit() {
