@@ -34,45 +34,46 @@ const start = () => {
   function addSelector() {
     inquirer.prompt(prompts.addPrompts)
     .then((answers) => {
-      switch(answers.task) {
-          case "Departments":
-              addDepartment();
-              break;
-          case "Employees":
-              addEmployee();
-              break;
-          case "Roles":
-              addRole();
-              break;
-          case "Go Back":
-              start();
-              break
+      switch (answers.task) {
+        
       }
-  });
+      });
   }
 
 function viewSelector() {
-    inquirer.prompt(prompts.addPrompts)
+    inquirer.prompt(prompts.viewPrompts)
         .then((answers) => {
-            switch (answers.task) {
-                case "Departments":
-                    viewDepartment();
-                    break;
-                case "Employees":
-                    viewEmployee();
-                    break;
-                case "Roles":
-                    viewRole();
-                    break;
-                case "Go Back":
-                    start();
-                    break
-            }
-        });
-  }
+          switch (answers.task) {
+            case "Departments": 
+            connection.query("SELECT * FROM department", (err, res) => {
+              if (err) throw err;
+              console.table(res);
+              start();
+              });        
+                break;
+            case "Employees":
+              connection.query("SELECT * FROM employee", (err, res) => {
+                if (err) throw err;
+                console.table(res);
+                start();
+                });
+                break;
+            case "Roles":
+              connection.query("SELECT * FROM role", (err, res) => {
+                if (err) throw err;
+                console.table(res);
+                start();
+                });
+                break;
+            case "Go Back":
+                start();
+                break;
+        };
+      });
+  };
 
 function updateSelector() {
-    inquirer.prompt(prompts.addPrompts)
+    inquirer.prompt(prompts.updatePrompts)
         .then((answers) => {
             switch (answers.task) {
                 case "Departments":
