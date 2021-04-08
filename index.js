@@ -11,7 +11,7 @@ const connection = mysql.createConnection({
     database: process.env.DB_NAME,
   });
 
-  const start = () => {
+const start = () => {
     inquirer.prompt(prompts.startupPrompts)
     .then((answers) => {
         switch(answers.task) {
@@ -51,7 +51,7 @@ const connection = mysql.createConnection({
   });
   }
 
-  function viewSelector() {
+function viewSelector() {
     inquirer.prompt(prompts.addPrompts)
         .then((answers) => {
             switch (answers.task) {
@@ -71,33 +71,33 @@ const connection = mysql.createConnection({
         });
   }
 
-  function updateSelector() {
+function updateSelector() {
     inquirer.prompt(prompts.addPrompts)
-    .then((answers) => {
-        switch (answers.task) {
-            case "Departments":
-                updateDepartment();
-                break;
-            case "Employees":
-                updateEmployee();
-                break;
-            case "Roles":
-                updateRole();
-                break;
-            case "Go Back":
-                start();
-                break
-        }
-    });
-  }
+        .then((answers) => {
+            switch (answers.task) {
+                case "Departments":
+                    updateDepartment();
+                    break;
+                case "Employees":
+                    updateEmployee();
+                    break;
+                case "Roles":
+                    updateRole();
+                    break;
+                case "Go Back":
+                    start();
+                    break
+            }
+        });
+}
 
-  function exit() {
-      console.log("later nerd");
-      connection.end();
-  }
+function exit() {
+    console.log("later nerd");
+    connection.end();
+}
 
-  connection.connect((err) => {
+connection.connect((err) => {
     if (err) throw err;
     console.log(`connected as id ${connection.threadId}`);
     start();
-  });
+});
