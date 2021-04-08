@@ -9,47 +9,47 @@ const connection = mysql.createConnection({
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
-});
+  });
 
 const start = () => {
     inquirer.prompt(prompts.startupPrompts)
-        .then((answers) => {
-            switch (answers.task) {
-                case "Add departments, roles, and/or employees":
-                    addSelector();
-                    break;
-                case "View departments, roles, employees":
-                    viewSelector();
-                    break;
-                case "Update employee roles":
-                    updateSelector();
-                    break;
-                case "Exit":
-                    exit();
-                    break
-            }
-        });
-}
+    .then((answers) => {
+        switch(answers.task) {
+            case "Add departments, roles, and/or employees":
+                addSelector();
+                break;
+            case "View departments, roles, employees":
+                viewSelector();
+                break;
+            case "Update employee roles":
+                updateSelector();
+                break;
+            case "Exit":
+                exit();
+                break
+        }
+    });
+  }
 
-function addSelector() {
+  function addSelector() {
     inquirer.prompt(prompts.addPrompts)
-        .then((answers) => {
-            switch (answers.task) {
-                case "Departments":
-                    addDepartment();
-                    break;
-                case "Employees":
-                    addEmployee();
-                    break;
-                case "Roles":
-                    addRole();
-                    break;
-                case "Go Back":
-                    start();
-                    break
-            }
-        });
-}
+    .then((answers) => {
+      switch(answers.task) {
+          case "Departments":
+              addDepartment();
+              break;
+          case "Employees":
+              addEmployee();
+              break;
+          case "Roles":
+              addRole();
+              break;
+          case "Go Back":
+              start();
+              break
+      }
+  });
+  }
 
 function viewSelector() {
     inquirer.prompt(prompts.addPrompts)
@@ -69,7 +69,7 @@ function viewSelector() {
                     break
             }
         });
-}
+  }
 
 function updateSelector() {
     inquirer.prompt(prompts.addPrompts)
@@ -89,10 +89,6 @@ function updateSelector() {
                     break
             }
         });
-}
-
-const viewDepartment = () =>{
-
 }
 
 function exit() {
