@@ -1,13 +1,14 @@
 const mysql = require('mysql');
+require('dotenv').config();
 const inquirer = require('inquirer');
 const prompts = require('./assets/prompts');
 
 const connection = mysql.createConnection({
     host: 'localhost',
     port: 3306,
-    user: 'root',
-    password: '',
-    database: 'employeeDB',
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
 });
 
 const start = () => {
@@ -38,10 +39,10 @@ function addSelector() {
                     addDepartment();
                     break;
                 case "Employees":
-                    viewEmployee();
+                    addEmployee();
                     break;
                 case "Roles":
-                    updateRole();
+                    addRole();
                     break;
                 case "Go Back":
                     start();
@@ -88,6 +89,10 @@ function updateSelector() {
                     break
             }
         });
+}
+
+const viewDepartment = () =>{
+
 }
 
 function exit() {

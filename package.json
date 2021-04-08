@@ -4,7 +4,8 @@
   "description": "Allows user to update and view database info",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -13,7 +14,8 @@
   "author": "Sean Kelly",
   "dependencies": {
     "inquirer": "^8.0.0",
-    "mysql": "^2.18.1"
+    "mysql": "^2.18.1",
+    "dotenv": "^8.2.0"
   },
   "license": "ISC",
   "bugs": {
