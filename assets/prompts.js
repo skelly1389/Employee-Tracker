@@ -42,5 +42,5 @@ module.exports = {
             message: 'What do you want to update?',
             choices: taskArray
         }
-    ]
+    ],
 };

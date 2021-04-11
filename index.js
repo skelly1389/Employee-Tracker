@@ -33,11 +33,22 @@ const start = () => {
 
   function addSelector() {
     inquirer.prompt(prompts.addPrompts)
-    .then((answers) => {
-      switch (answers.task) {
-        
-      }
-      });
+        .then((answers) => {
+            switch (answers.task) {
+                case "Departments":
+                    depAdder();
+                    break;
+                case "Employees":
+                    empAdder();
+                    break;
+                case "Roles":
+                    roleAdder();
+                    break;
+                case "Go Back":
+                    start();
+                break;       
+            }
+        });
   }
 
 function viewSelector() {
@@ -50,7 +61,7 @@ function viewSelector() {
               console.table(res);
               start();
               });        
-                break;
+            break;
             case "Employees":
               connection.query("SELECT * FROM employee", (err, res) => {
                 if (err) throw err;
@@ -90,6 +101,145 @@ function updateSelector() {
                     break
             }
         });
+}
+
+const depAdder = () => {
+    inquirer
+    .prompt([
+      {
+        name: 'name',
+        type: 'input',
+        message: 'What is the name of the new department?',
+        validate: function (value) {
+            var pass = (value !== null && value !== "")
+            if (pass) {
+              return true;
+            }
+              return 'Please enter a department name';
+          },
+      },
+    ])
+    .then((answer) => {
+      // when finished prompting, insert a new item into the db with that info
+      connection.query(
+        'INSERT INTO department SET ?',
+        // QUESTION: What does the || 0 do?
+        {
+          name: answer.name
+        },
+        (err) => {
+          if (err) throw err;
+          console.log('Department Added!');
+          // re-prompt the user for if they want to bid or post
+          start();
+        }
+      );
+    });
+}
+
+const empAdder = () => {
+    inquirer
+    .prompt([
+      {
+        name: 'fname',
+        type: 'input',
+        message: 'What is the first of the new employee?',
+        validate: function (value) {
+            var pass = (value !== null && value !== "")
+            if (pass) {
+              return true;
+            }
+              return 'Please enter a name';
+          },
+      },
+      {
+        name: 'lname',
+        type: 'input',
+        message: 'What is the last name of the new employee?',
+        validate: function (value) {
+            var pass = (value !== null && value !== "")
+            if (pass) {
+              return true;
+            }
+              return 'Please enter a name';
+          },
+      },
+      {
+        name: 'role',
+        type: 'number',
+        message: 'What is the employee\'s role id?',
+      },
+      {
+        name: 'mang',
+        type: 'number',
+        message: 'What is the employee\'s manager id?',
+      }
+    ])
+    .then((answer) => {
+      // when finished prompting, insert a new item into the db with that info
+      connection.query(
+        'INSERT INTO employee SET ?',
+        // QUESTION: What does the || 0 do?
+        {
+          first_name: answer.fname,
+          last_name: answer.lname,
+          role_id: answer.role,
+          manager_id: answer.mang
+        },
+        (err) => {
+          if (err) throw err;
+          console.log('Employee Added!');
+          // re-prompt the user for if they want to bid or post
+          start();
+        }
+      );
+    });
+}
+
+const roleAdder = () => {
+    inquirer
+    .prompt([
+      {
+        name: 'title',
+        type: 'input',
+        message: 'What is the title of the role?',
+        validate: function (value) {
+            var pass = (value !== null && value !== "")
+            if (pass) {
+              return true;
+            }
+              return 'Please enter a title';
+          },
+      },
+      {
+        name: 'salary',
+        type: 'number',
+        message: 'What is the role\'s salary?',
+      },
+      {
+        name: 'dept',
+        type: 'number',
+        message: 'What is the role\'s department id?',
+      }
+    ])
+    .then((answer) => {
+      // when finished prompting, insert a new item into the db with that info
+      connection.query(
+        'INSERT INTO role SET ?',
+        // QUESTION: What does the || 0 do?
+        {
+          title: answer.title,
+          salary: answer.salary,
+          department_id: answer.dept,
+        },
+        (err) => {
+          if (err) throw err;
+          console.log('Role Added!');
+          // re-prompt the user for if they want to bid or post
+          start();
+        }
+      );
+    });
 }
 
 function exit() {
