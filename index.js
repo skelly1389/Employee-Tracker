@@ -15,10 +15,10 @@ const start = () => {
     inquirer.prompt(prompts.startupPrompts)
     .then((answers) => {
         switch(answers.task) {
-            case "Add departments, roles, and/or employees":
+            case "Add departments, roles, or employees":
                 addSelector();
                 break;
-            case "View departments, roles, employees":
+            case "View departments, roles, or employees":
                 viewSelector();
                 break;
             case "Update employee roles":
