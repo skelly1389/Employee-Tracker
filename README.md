@@ -18,6 +18,8 @@ If your README is long, add a table of contents to make it easy for users to fin
 
 ## Usage
 
+[Video of app available here!](https://www.youtube.com/watch?v=r6sl-KKrFVg)
+
 - Select options from the menu in the terminal.
 - View allows the user to view either employees, roles, or departments and then returns to the start screen.
 - Add allows the user to add either employees, roles, or departments and then returns to the start screen. Viewing the data after this reflects changes just made.
