@@ -33,14 +33,5 @@ module.exports = {
             message: 'What would you like to view?',
             choices: taskArray
         }
-    ],
-    
-    updatePrompts: [
-        {
-            type: 'list',
-            name: 'task',
-            message: 'What do you want to update?',
-            choices: taskArray
-        }
-    ],
+    ]
 };

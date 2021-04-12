@@ -83,26 +83,6 @@ function viewSelector() {
       });
   };
 
-function updateSelector() {
-    inquirer.prompt(prompts.updatePrompts)
-        .then((answers) => {
-            switch (answers.task) {
-                case "Departments":
-                    updateDepartment();
-                    break;
-                case "Employees":
-                    updateEmployee();
-                    break;
-                case "Roles":
-                    updateRole();
-                    break;
-                case "Go Back":
-                    start();
-                    break
-            }
-        });
-}
-
 const depAdder = () => {
     inquirer
     .prompt([
@@ -120,17 +100,14 @@ const depAdder = () => {
       },
     ])
     .then((answer) => {
-      // when finished prompting, insert a new item into the db with that info
       connection.query(
         'INSERT INTO department SET ?',
-        // QUESTION: What does the || 0 do?
         {
           name: answer.name
         },
         (err) => {
           if (err) throw err;
           console.log('Department Added!');
-          // re-prompt the user for if they want to bid or post
           start();
         }
       );
@@ -176,10 +153,8 @@ const empAdder = () => {
       }
     ])
     .then((answer) => {
-      // when finished prompting, insert a new item into the db with that info
       connection.query(
         'INSERT INTO employee SET ?',
-        // QUESTION: What does the || 0 do?
         {
           first_name: answer.fname,
           last_name: answer.lname,
@@ -189,7 +164,6 @@ const empAdder = () => {
         (err) => {
           if (err) throw err;
           console.log('Employee Added!');
-          // re-prompt the user for if they want to bid or post
           start();
         }
       );
@@ -223,10 +197,8 @@ const roleAdder = () => {
       }
     ])
     .then((answer) => {
-      // when finished prompting, insert a new item into the db with that info
       connection.query(
         'INSERT INTO role SET ?',
-        // QUESTION: What does the || 0 do?
         {
           title: answer.title,
           salary: answer.salary,
@@ -235,11 +207,49 @@ const roleAdder = () => {
         (err) => {
           if (err) throw err;
           console.log('Role Added!');
-          // re-prompt the user for if they want to bid or post
           start();
         }
       );
     });
+}
+
+function updateSelector() {
+  connection.query('SELECT * FROM employee', (err, answer) => {
+    if (err) throw err;
+    inquirer
+      .prompt([
+        {
+          name: 'choice',
+          type: 'rawlist',
+          choices() {
+            const choiceArray = [];
+            results.forEach(({ last_name, first_name }) => {
+              choiceArray.push(`${last_name}, ${first_name}`);
+            });
+            return choiceArray;
+          },
+          message: 'Which employee would you like to update??',
+        },
+      ])
+      .then((answer) => {
+        const empname = answer;
+        inquirer
+          .prompt([
+            {
+              name: 'choice',
+              type: 'list',
+              message: "Would you like to update their first name?"
+              ['yes', 'no']
+            }
+          ])
+          .then((answer) => {
+            if(answer == 'yes') {
+              
+            }
+          });
+          
+      });
+  });
 }
 
 function exit() {
